@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>刘养硕的播客</title>
+  
+  <subtitle>记录工作和学习的点点滴滴</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://liuyangshuo.com/"/>
+  <updated>2018-10-10T13:28:06.596Z</updated>
+  <id>http://liuyangshuo.com/</id>
+  
+  <author>
+    <name>刘养硕</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C/C++知识总结之abs函数</title>
+    <link href="http://liuyangshuo.com/2018/10/10/C++%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
+    <id>http://liuyangshuo.com/2018/10/10/C++知识总结/</id>
+    <published>2018-10-10T13:25:00.000Z</published>
+    <updated>2018-10-10T13:28:06.596Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="abs函数"><a href="#abs函数" class="headerlink" title="abs函数"></a>abs函数</h3><hr><ul><li>abs函数存在于不止一个库中，使用哪个库中的abs函数就可以包含哪个头文件</li><li>其中在c标准库stdlib.h中abs函数只接受整型或长整型，在c98标准中参数类型可以是int或long int类型；c11标准中还可以是long long int类型</li><li>在数学函数库cmath/math.h中，在c++98标准中abs可接受的参数类型为double/float/long double；在c++11中还可以接受各种整型参数。abs还可以写成fabs，这两个用法是一样的，labs则只接受long int类型的参数。在c++11中头文件可以写cmath,c++98只能写math.h</li><li>abs函数的返回值和参数类型保持一致</li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      这是对文中的描述，会显示在主页上，点击进入详情后不会再显示
+    
+    </summary>
+    
+      <category term="C/C++" scheme="http://liuyangshuo.com/categories/C-C/"/>
+    
+    
+      <category term="C/C++ abs" scheme="http://liuyangshuo.com/tags/C-C-abs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git 学习</title>
+    <link href="http://liuyangshuo.com/2018/10/06/git%E5%91%BD%E4%BB%A4/"/>
+    <id>http://liuyangshuo.com/2018/10/06/git命令/</id>
+    <published>2018-10-06T09:53:11.000Z</published>
+    <updated>2018-10-10T16:10:56.640Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="git配置"><a href="#git配置" class="headerlink" title="git配置"></a>git配置</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"lys"</span></span><br><span class="line">$ git config --global user.email <span class="string">"liu_yangshuo@163.com"</span></span><br></pre></td></tr></table></figure><h3 id="git获取版本库"><a href="#git获取版本库" class="headerlink" title="git获取版本库"></a>git获取版本库</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> http://xxxxxx</span><br></pre></td></tr></table></figure><h3 id="git初始化一个新仓库"><a href="#git初始化一个新仓库" class="headerlink" title="git初始化一个新仓库"></a>git初始化一个新仓库</h3><p>新建一个文件夹，然后在文件夹下执行：<br><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure></p><p>执行完命令就会在该文件夹下生成.git文件夹</p><h3 id="git代码提交流程"><a href="#git代码提交流程" class="headerlink" title="git代码提交流程"></a>git代码提交流程</h3><hr><ol><li>新建或修改文件</li><li>使用 git add 命令将文件添加到缓存区</li><li>使用 git commit 将修改文件提交到本地代码库</li><li>使用 git push 将本地文件同步到远程代码库</li></ol><hr><h3 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ git status  //使用该命令可以判断git代码提交流程执行到哪一步，该命令显示当前的状态信息</span><br><span class="line">$ git diff    //该命令会显示当前已修改但是还没加入缓存区的内容</span><br><span class="line">$ git diff --cached   //该命令显示使用git add加入到缓存区中的文件内容</span><br><span class="line">$ git commit -m <span class="string">"git log"</span>    //将加入到缓存区中的内容提交到本地版本库，</span><br><span class="line">$ git commit -a -m <span class="string">"git log"</span>  //如果不是用git add那么这个命令只会将修改的文件提交到版本库，不会提交新建文件</span><br><span class="line">$ git branch  //查看所有分支，以及当前所在分支</span><br><span class="line">$ git branch branch_01_01 //新建一个分支</span><br><span class="line">$ git checkout master //切换分支</span><br><span class="line">$ git merge -m <span class="string">'merge branch_01_01 branch'</span> branch_01_01    //将branch_01_01分支合并到当前分支</span><br><span class="line">$ git branch -d branch_01_01  //删除分支branch_01_01,该命令只能删除已经合并的分支，如果强制删除某个分支使用-D参数</span><br><span class="line">$ git reset --head HEAD^  //撤销合并的内容</span><br><span class="line">$ git <span class="built_in">log</span> //查看所有日志</span><br><span class="line">$ git <span class="built_in">log</span> v1.1... main.cpp /<span class="built_in">source</span> //该命令显示从v1.1开发<span class="built_in">source</span>目录下所有main.cpp文件的修改</span><br><span class="line">$ git <span class="built_in">log</span> --<span class="built_in">stat</span>  //该命令显示日志更详细的内容</span><br><span class="line">$ git <span class="built_in">log</span> --pretty=[online/medium/short/full/fuller/email/raw] //格式化日志输出</span><br><span class="line">$ git <span class="built_in">log</span> --graph --pretty=online   //--graph选项用来可视化日志</span><br><span class="line">$ git diff master <span class="built_in">test</span>  //比较分支<span class="built_in">test</span>和主线master的区别</span><br><span class="line">$ git diff <span class="built_in">test</span> //比较<span class="built_in">test</span>分支和当前分支的差别</span><br><span class="line">$ git diff <span class="built_in">test</span> file1   //比较分支<span class="built_in">test</span>中file1和当前分支file1的差别</span><br><span class="line">$ git diff <span class="built_in">test</span> --<span class="built_in">stat</span>  //统计都有哪些文件，哪些行有差别</span><br><span class="line">$ git tag tag-1 b1a2f004 //打一个名为tag-1的标签，b1a2f004为commit名称的前8位</span><br><span class="line">$ git tag -a tag-2 b1a2f004 -m <span class="string">"tag 2"</span>  //创建一个标签对象，并添加注释</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      本文记录了git的常用命令，包括git配置，git初始化版本库，git代码提交流程等
+    
+    </summary>
+    
+      <category term="开发工具" scheme="http://liuyangshuo.com/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="git 开发工具" scheme="http://liuyangshuo.com/tags/git-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://liuyangshuo.com/2018/06/14/hello-world/"/>
+    <id>http://liuyangshuo.com/2018/06/14/hello-world/</id>
+    <published>2018-06-14T13:55:27.279Z</published>
+    <updated>2018-06-14T13:55:27.279Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="hljs highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
