@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyangshuo.com/"/>
-  <updated>2018-10-10T13:28:06.596Z</updated>
+  <updated>2018-10-10T16:15:03.468Z</updated>
   <id>http://liuyangshuo.com/</id>
   
   <author>
@@ -21,13 +21,19 @@
     <link href="http://liuyangshuo.com/2018/10/10/C++%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
     <id>http://liuyangshuo.com/2018/10/10/C++知识总结/</id>
     <published>2018-10-10T13:25:00.000Z</published>
-    <updated>2018-10-10T13:28:06.596Z</updated>
+    <updated>2018-10-10T16:15:03.468Z</updated>
     
     <content type="html"><![CDATA[<h3 id="abs函数"><a href="#abs函数" class="headerlink" title="abs函数"></a>abs函数</h3><hr><ul><li>abs函数存在于不止一个库中，使用哪个库中的abs函数就可以包含哪个头文件</li><li>其中在c标准库stdlib.h中abs函数只接受整型或长整型，在c98标准中参数类型可以是int或long int类型；c11标准中还可以是long long int类型</li><li>在数学函数库cmath/math.h中，在c++98标准中abs可接受的参数类型为double/float/long double；在c++11中还可以接受各种整型参数。abs还可以写成fabs，这两个用法是一样的，labs则只接受long int类型的参数。在c++11中头文件可以写cmath,c++98只能写math.h</li><li>abs函数的返回值和参数类型保持一致</li></ul><hr>]]></content>
     
     <summary type="html">
     
-      这是对文中的描述，会显示在主页上，点击进入详情后不会再显示
+      
+      
+        &lt;h3 id=&quot;abs函数&quot;&gt;&lt;a href=&quot;#abs函数&quot; class=&quot;headerlink&quot; title=&quot;abs函数&quot;&gt;&lt;/a&gt;abs函数&lt;/h3&gt;&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;abs函数存在于不止一个库中，使用哪个库中的abs函数就可以包含哪个头文件&lt;/li&gt;
+&lt;li&gt;
+      
     
     </summary>
     
