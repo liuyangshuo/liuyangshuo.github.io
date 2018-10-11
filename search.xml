@@ -19,7 +19,9 @@
       
         <tags>
             
-            <tag> C/C++ abs </tag>
+            <tag> C/C++ </tag>
+            
+            <tag> abs </tag>
             
         </tags>
       
@@ -42,7 +44,9 @@
       
         <tags>
             
-            <tag> git 开发工具 </tag>
+            <tag> git </tag>
+            
+            <tag> 开发工具 </tag>
             
         </tags>
       
