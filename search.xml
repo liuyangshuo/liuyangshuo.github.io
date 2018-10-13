@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title>博客搭建笔记</title>
+      <link href="/2018/10/13/hexo_and_markdown/"/>
+      <url>/2018/10/13/hexo_and_markdown/</url>
+      
+        <content type="html"><![CDATA[<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><hr><ul><li>本博客记录了我在搭建好我的博客网站后遇到的一些问题，以免日后遇到相同问题又要到处搜索，如果遇到和我相同问题的朋友也可以用作参考</li><li>在这里我将博客网站和博文的问题放在一篇文章中来统一介绍</li></ul><hr><a id="more"></a><h3 id="网站配置和主题配置"><a href="#网站配置和主题配置" class="headerlink" title="网站配置和主题配置"></a>网站配置和主题配置</h3><h4 id="博客网站配置"><a href="#博客网站配置" class="headerlink" title="博客网站配置"></a>博客网站配置</h4><hr><ul><li>找到hexo博客所在目录，打开配置文件_config.yml。下面是我所修改的一些内容,如果没有可以自己添加：</li><li>title：刘养硕的博客 //标题</li><li>subtitle: 记录工作和学习的点点滴滴  //副标题</li><li>description: 快乐生活，快乐学习 //描述</li><li>author: 刘养硕  //博主</li><li>language: zh_CN //中文语言，默认为英文，这个还要看你主题所支持的语言</li><li>还可以有keywords等选项，我的博客里面不显示就没有加</li><li>这里进行一下说明，在我打算修改博客为中文时（默认为英文），博客显示的语言不稳定，有时是英文，有时是中文，还有时会出现中文繁体，因此我没有在配置文件中修改语言选项（也就是language）。我修改的是主题文件夹下所支持的语言文件：进入到themes\aria\languages目录（aria是我所使用的主题），我对languages目录做了一下备份，然后将default.yml和zh_CN.yml以外的文件都删掉，最后修改defulet.yml中的内容为zh_CH.yml（默认为en.yml）</li></ul><hr><h4 id="修改博客的主题"><a href="#修改博客的主题" class="headerlink" title="修改博客的主题"></a>修改博客的主题</h4><hr><ul><li>在网上搜索hexo主题，进入到hexo官网主题网站，在下载之前可以先预览一下主题</li><li>找到自己喜欢的主题，进入到主题所在的github网站,复制主题的github网址。到博客的主题目录下使用git clone命令下载</li><li>下载好之后一定好阅读主题的README.md文件，里面会对该主题进行说明，至少会介绍主题配置，也就是修改博客的_config.yml文件中的theme。必要时还要下载支持该主题的一些插件，这个按照README.md中的说明操作即可</li><li>修改完博客的配置文件_config.yml之后，网站会应用该主题。如果要进一步确定网页的具体显示内容就要修改主题的配置文件，名字也是_config.yml（我的在themes\aria目录下）</li><li>在</li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>C/C++知识总结之abs函数</title>
       <link href="/2018/10/10/C++_abs/"/>
       <url>/2018/10/10/C++_abs/</url>
