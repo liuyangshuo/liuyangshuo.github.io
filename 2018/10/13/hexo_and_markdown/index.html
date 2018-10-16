@@ -200,11 +200,12 @@
 <li>给文章添加分类使用categories，格式同上</li>
 <li>如果添加多个标签或分类如下图所示</li>
 <li><img src="https://github.com/liuyangshuo/liuyangshuo.github.io/raw/master/img/tags.jpg" alt="添加多个标签"></li>
-<li><p>在文章中插入图片，我用的是有道云笔记写markdown的。软件支持直接拖入图片，就是需要会员，所以我手动插入的。我是现将图片放到该博客的github上，首先进入public文件夹（该文件夹的内容和github上的内容是一致的），该文件夹下有一个images文件夹，这个是放配置文件中使用的图片，刚开始我是将图片放到这个文件夹下，但是每次更新都会出问题（执行hexo cleand命令时会将文件夹清空，再发布的时候因为找不到该图片就会将github上的图片删除掉）。因此我是在public文件夹下有新建一个img文件夹，然后将图片放到该文件夹下，然后使用hexo d将该图片推送到github上（我这里对于本博客所对应github没有使用git push权限）。进入到你的github网站，找到该图片，然后将该图片的网址复制出来，在你想放图片位置使用:</p>
+<li><p>在文章中插入图片，我用的是有道云笔记写markdown的。软件支持直接拖入图片，就是需要会员，所以我手动插入的。我是现将图片放到该博客的github上，首先在source目录下新建一个img文件夹，将图片放到img文件夹下，然后使用hexo d将该图片推送到github上（我这里对于本博客所对应github没有使用git push权限）。进入到你的github网站，找到该图片，然后将该图片的网址复制出来，在你想放图片位置使用:</p>
 <figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![图片说明](图片所在github网址)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>将网址粘贴到小括号内。这时还不能显示图片，在刚才粘贴网址中找到blob,并将blob改为raw,发布文章就可以看到了</p>
 </li>
+<li>说明一下，在博客目录下有一个和github目录对应的public文件夹，在每次执行hexo cleand命令时该文件夹都会被清空。在执行hexo g时优惠重新生成该文件夹，然后使用hexo d将public文件夹中的额内容推送到github上。我刚开始不了解，就将图片放到public目录下的images文件夹，结果每次发布就会丢失图片。正确的做法是放到source的一个文件夹或者是主题下的images文件夹，目的是在生成public文件夹时能够找到该图片。我之所以不放到主题下的images文件夹，是因为我不想文章和主题相关联，这样之后在更换主题时还要再修改图片位置</li>
 </ul>
 <hr>
 
