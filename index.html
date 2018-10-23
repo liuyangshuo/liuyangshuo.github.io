@@ -129,6 +129,60 @@
   
   <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/10/21/shell_multi_thread/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="刘养硕">
+        <meta itemprop="description" content="快乐生活，快乐学习">
+        <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/10/21/shell_multi_thread/" itemprop="url">shell 多线程</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-10-21T10:46:00+08:00">2018-10-21 10:46:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      
+      <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>如果完成一个linux任务，需要多条命令的话，我们通常将这些命令写成一个shell文件，shell脚本也就是一系列命令的集合。但是默认情况下这些命令时按顺序执行的，也就是说下一条命令会等待上一条命令执行完再执行。那么如何实现命令的并行执行呢？首先我们会想到将命令或任务放到后台去执行，这样确实可以实现命令的并行运行。但是如果命令太多，放入后台可能会影响系统其它程序的运行。怎么对命令的执行进行控制，达到我们所认识的”多线程的效果”，这就是下文所介绍的shell”多线程”的实现。<br>
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/shell/" rel="tag"><i class="fas fa-tags"></i>shell</a>
+        
+        <a class="post-tag button" href="/tags/linux/" rel="tag"><i class="fas fa-tags"></i>linux</a>
+        
+        <a class="post-tag button" href="/tags/多线程/" rel="tag"><i class="fas fa-tags"></i>多线程</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/10/13/hexo_and_markdown/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="刘养硕">
@@ -376,7 +430,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">4</a></div>
+      <div><a href="/archives/">5</a></div>
     </div>
     
     
@@ -385,7 +439,7 @@
     
     <div class="categories-count">
       <div class="site-count-title">分类</div>
-      <div><a href="/categories/">3</a></div>
+      <div><a href="/categories/">4</a></div>
     </div>
     
     
@@ -394,7 +448,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">标签</div>
-      <div><a href="/tags/">6</a></div>
+      <div><a href="/tags/">9</a></div>
     </div>
     
   </div>
