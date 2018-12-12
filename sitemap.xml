@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://liuyangshuo.com/2018/12/03/Embind/</loc>
+    <loc>http://liuyangshuo.com/2018/12/12/IndexedDB/</loc>
     
-    <lastmod>2018-12-11T15:24:37.378Z</lastmod>
+    <lastmod>2018-12-12T15:30:05.741Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liuyangshuo.com/2018/12/09/Embind/</loc>
+    
+    <lastmod>2018-12-12T04:00:11.342Z</lastmod>
     
   </url>
   

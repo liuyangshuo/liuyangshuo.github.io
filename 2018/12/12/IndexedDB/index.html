@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
+    
+    
+    
+    <meta name="keywords" content="Life, ARIA, Hexo">
+    
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    
+    
+    <link rel="alternate" href="/atom.xml" title="刘养硕的博客" type="application/atom+xml" />
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Emscripten IndexedDB | 刘养硕的博客 - 记录工作和学习的点点滴滴</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="default"  data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header" style="background: #33363b;">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">刘养硕的博客</a></h1>
+        <h2 class="subtitle">记录工作和学习的点点滴滴</h2>
+      </div>
+      
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/">首页</a></li>
+        
+        <li role="menuitem"><a href="/archives/">归档</a></li>
+        
+        <li role="menuitem"><a href="/categories/">分类</a></li>
+        
+        <li role="menuitem"><a href="/tags/">标签</a></li>
+        
+        <li role="menuitem"><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
+<div id="post" class="page">
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/12/IndexedDB/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+       <meta itemprop="name" content="刘养硕">
+       <meta itemprop="description" content="快乐生活，快乐学习">
+       <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+       <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">Emscripten IndexedDB</h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-12-12T10:00:00+08:00">2018-12-12 10:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WebAssembly/" itemprop="url" rel="index"><span itemprop="name">WebAssembly</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      <p>这篇文件介绍两种操作IndexedDB的方式，一种是通过Emscripten文件系统层提供的IndexedDb方法；另一种是通过fetch来存储网络服务器中的文件或内存文件。第一种方式适用于存储小型数据，第二种方式适用于存储大型文件。</p>
+<h2 id="Emscripten异步IndexedDB-API"><a href="#Emscripten异步IndexedDB-API" class="headerlink" title="Emscripten异步IndexedDB API"></a>Emscripten异步IndexedDB API</h2><p>IndexedDB是一个允许您持久存储数据的浏览器API，也就是说，您可以将数据保存在那里，然后在用户重新访问网页时加载数据。IDBFS通过Emscripten文件系统层提供了一种使用IndexedDB的方法。emscripten_idb_*此处列出的方法提供了一个直接指向IndexedDB的替代API，从而避免了文件系统层的开销。<br><a id="more"></a><br>下面通过一个简单示例来演示数据的基本操作：<br><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;assert.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;emscripten.h&gt;</span><br><span class="line"></span><br><span class="line">#define DB &quot;THE_DB&quot;</span><br><span class="line">#define STAGE 0</span><br><span class="line"></span><br><span class="line">int expected;</span><br><span class="line">int result;</span><br><span class="line"></span><br><span class="line">void ok(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;arg = %d\n&quot;, (int)arg;</span><br><span class="line">    printf(&quot;expected = %d\n&quot;, expected);</span><br><span class="line">    assert(expected == (int)arg);</span><br><span class="line">    //REPORT_RESULT(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void onerror(void* arg)</span><br><span class="line">&#123;</span><br><span class="line">    assert(expected == (int)arg);</span><br><span class="line">    //REPORT_RESULT(999);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void onload(void* arg, void* ptr, int num)</span><br><span class="line">&#123;</span><br><span class="line">    assert(expected == (int)arg);</span><br><span class="line">    printf(&quot;loaded %s\n&quot;, ptr);</span><br><span class="line">    assert(num == strlen(SECRET)+1);</span><br><span class="line">    assert(strcmp(ptr, SECRET) == 0);</span><br><span class="line">    //REPORT_RESULT(1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void onbadload(void* arg, void* ptr, int num)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;load failed, surprising\n&quot;);</span><br><span class="line">    //REPORT_RESULT(999);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void oncheck(void* arg, int exists)</span><br><span class="line">&#123;</span><br><span class="line">    assert(expected == (int)arg);</span><br><span class="line">    printf(&quot;exists? %d\n&quot;, exists);</span><br><span class="line">    assert(exists);</span><br><span class="line">    //REPORT_RESULT(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void onchecknope(void* arg, int exists)</span><br><span class="line">&#123;</span><br><span class="line">    assert(expeted == (int)arg);</span><br><span class="line">    printf(&quot;exists (hopefully not)? %d\n&quot;, exists);</span><br><span class="line">    assert(!exists);</span><br><span class="line">    //REPORT_RESULT(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void test() &#123;</span><br><span class="line">  result = STAGE;</span><br><span class="line">#if STAGE == 0</span><br><span class="line">  expected = 12;</span><br><span class="line">  emscripten_idb_async_store(DB, &quot;the_secret&quot;, SECRET, strlen(SECRET)+1, (void*)expected, ok, onerror);</span><br><span class="line">  printf(&quot;storing %s\n&quot;, SECRET);</span><br><span class="line">#elif STAGE == 1</span><br><span class="line">  expected = 12;</span><br><span class="line">  emscripten_idb_async_load(DB, &quot;the_secret&quot;, (void*)expected, onload, onerror);</span><br><span class="line">//  printf(&quot;onload %d\n&quot;, (int)onload);</span><br><span class="line">#elif STAGE == 2</span><br><span class="line">  expected = 44;</span><br><span class="line">  emscripten_idb_async_delete(DB, &quot;the_secret&quot;, (void*)expected, ok, onerror);</span><br><span class="line">  printf(&quot;deleting the_secret\n&quot;);</span><br><span class="line">#elif STAGE == 3</span><br><span class="line">  expected = 55;</span><br><span class="line">  emscripten_idb_async_load(DB, &quot;the_secret&quot;, (void*)expected, onbadload, ok);</span><br><span class="line">  printf(&quot;loading, should fail as we deleted\n&quot;);</span><br><span class="line">#elif STAGE == 4</span><br><span class="line">  expected = 66;</span><br><span class="line">  emscripten_idb_async_exists(DB, &quot;the_secret&quot;, (void*)expected, oncheck, onerror);</span><br><span class="line">#elif STAGE == 5</span><br><span class="line">  expected = 77;</span><br><span class="line">  emscripten_idb_async_exists(DB, &quot;the_secret&quot;, (void*)expected, onchecknope, onerror);</span><br><span class="line">#else</span><br><span class="line">  assert(0);</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void never() &#123;</span><br><span class="line">  EM_ASM(&#123; alert(&apos;this should never be reached! runtime must not be shut down!&apos;) &#125;);</span><br><span class="line">  assert(0);</span><br><span class="line">  while (1) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">  //atexit(never);</span><br><span class="line">  test();</span><br><span class="line">  emscripten_exit_with_live_runtime();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方法说明：</p>
+<blockquote>
+<p>void emscritpen_idb_async_load(const cahr <em>db_name, const char </em>file_id, void* arg, em_async_wget_onload_func onload, em_arg_callback_func onerror)</p>
+</blockquote>
+<p>异步从本地IndexedDB存储加载数据。这允许持久数据，而不需要文件系统层的开销，当数据准备就绪时，onload函数会被调用，如果发生任何错误则onerror会被调用</p>
+<p>参数：</p>
+<ul>
+<li>db_name：从哪个数据库加载数据</li>
+<li>file_id:要加载的数据标识符</li>
+<li>arg(void*):传递给毁掉的用户定义的数据，不受API本身的影响。这可以被回调用来标识相关的调用</li>
+<li>onload(em_async_wget_onload_func):成功将URL加载到缓冲区是进行回调，回调方法参数：<ul>
+<li>(void)*:等于arg(用户定义数据)</li>
+<li>(void)*:指向带有数据的缓冲区指针</li>
+<li>(int)：缓冲区大小，以字节为单位</li>
+</ul>
+</li>
+<li>onerror(em_arg_callback_func):<ul>
+<li>(void)*：等于arg(用户定义数据)<blockquote>
+<p>void emscripten_idb_async_store(const char <em>db_name, const char </em>file_id, void<em> ptr, int num, void</em> arg, em_arg_callback_func onstore, em_arg_callback_func onerror)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>异步存储数据到本地IndexedDB。不需要文件系统层就可以将数据持久化。当数据存储存储时会调用onstore函数，如果发生错误就会调用onerror函数。</p>
+<p>参数：</p>
+<ul>
+<li>ptr:指向存储数据的指针</li>
+<li>num:存储的数据有多少字节</li>
+<li>onstore(em_arg_callback_func):对数据缓冲区成功存储到URL的回调</li>
+</ul>
+<blockquote>
+<p>void emscripten_idb_async_delete(const char <em>db_name, const char </em>file_id, void *arg, em_arg_callback_func ondelete, em_arg_callback_func onerror)</p>
+</blockquote>
+<p>从本地IndexedDB数据库异步删除数据。当数据被删除试调用ondelte函数，当发生错误是调用onerror函数。</p>
+<p>参数：</p>
+<ul>
+<li>ondelete(em_arg_callback_func):成功删除的回调</li>
+</ul>
+<blockquote>
+<p>void emscripten_idb_async_exists(const char <em>db_name, const char </em>file_id, void* arg, em_idb_exists_func oncheck, em_arg_callback_func onerror)</p>
+</blockquote>
+<p>异步检查本地IndexedDB数据库中是否存在特定ID的数据。当数据被选中是，则调用oncheck函数，如果发生错误就会调用onerror函数</p>
+<p>参数：</p>
+<ul>
+<li>oncheck(em_idb_exists_func):成功检查的回调，回调函数参数：<ul>
+<li>int:文件是否存在</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>int emscripten_run_preload_plugins(const char* file, em_str_callback_func onload, em_str_callback_func onerror)</p>
+</blockquote>
+<p>异步地在文件上运行预加载插件。它工作在已经存在的文件数据上，并执行任何可用的作为预加载插件的所需的异步操作，例如解码图像以供在IMG_Load中使用的音频解码Mix_LoadWAV。操作完成后会调用onload函数，如果发生错误则调用onerror函数</p>
+<p>参数：</p>
+<ul>
+<li>onload(em_str_callback_func):对文件的成功处理进行回调,回调函数参数：<ul>
+<li>(const char)*:处理的文件</li>
+</ul>
+</li>
+<li>onerror(em_str_callback_func):调用失败，回调函数参数：<ul>
+<li>(const char)*:操作失败的文件</li>
+</ul>
+</li>
+</ul>
+<h2 id="通过Fetch-API操作IndexedDB"><a href="#通过Fetch-API操作IndexedDB" class="headerlink" title="通过Fetch API操作IndexedDB"></a>通过Fetch API操作IndexedDB</h2><h3 id="从网络文件持久化数据"><a href="#从网络文件持久化数据" class="headerlink" title="从网络文件持久化数据"></a>从网络文件持久化数据</h3><p>Emscripten FETCH API允许本机代码通过XHR(HTTPGET、PUT、POST)从远程服务器传输文件，并在浏览器的IndexedDB存储中本地宝存已下载的文件，以便在随后的也米恩访问是能够在本地重新访问这些文件。</p>
+<blockquote>
+<p>为了使用FETCH API，需要使用-s FETCH=1。</p>
+</blockquote>
+<p>下面的应用程序异步地将文件从Web服务器下载到应用程序堆中的内存和IndexedDB中。<br><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;emscripten/fetch.h&gt;</span><br><span class="line"></span><br><span class="line">void downloadSucceeded(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;Finished downloading %llu bytes from URL %s.\n&quot;, fetch-&gt;numBytes, fetch-&gt;url);</span><br><span class="line">  // The data is now available at fetch-&gt;data[0] through fetch-&gt;data[fetch-&gt;numBytes-1];</span><br><span class="line">  emscripten_fetch_close(fetch); // Free data associated with the fetch.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void downloadFailed(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;Downloading %s failed, HTTP failure status code: %d.\n&quot;, fetch-&gt;url, fetch-&gt;status);</span><br><span class="line">  emscripten_fetch_close(fetch); // Also free data on failure.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">  emscripten_fetch_attr_t attr;</span><br><span class="line">  emscripten_fetch_attr_init(&amp;attr);</span><br><span class="line">  strcpy(attr.requestMethod, &quot;GET&quot;);</span><br><span class="line">  attr.attributes = EMSCRIPTEN_FETCH_LOAD_TO_MEMORY | EMSCRIPTEN_FETCH_PERSIST_FILE;</span><br><span class="line">  attr.onsuccess = downloadSucceeded;</span><br><span class="line">  attr.onerror = downloadFailed;</span><br><span class="line">  emscripten_fetch(&amp;attr, &quot;myfile.dat&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果为调用Emscripten_FETCH指定了相对路径名，如上面的示例所示，则相对于当前页面的href(URL)执行XHR。传递完全限定的绝对URL允许跨域下载文件，但是这些文件必须符合http访问控制(CORS)规则.</p>
+<p>默认情况下，FETCH API异步运行，这意味着Emscripten_FETCH()函数调用将立即返回，并且操作将继续发生在后台。操作完成后，将调用“成功”或“失败”回调。</p>
+<p>FETCH API发出的XHR请求受制于通常的浏览器缓存行为。这些缓存是暂时性的(临时的)，因此无法保证数据将在给定的一段时间内持续在缓存中。此外，如果文件有点大(多兆字节)，浏览器通常根本不缓存下载。<br>为了支持保存下载文件的更显式控制，FETCH API与浏览器的IndexedDBAPI交互，后者可以加载和存储在以后访问页面时可用的大型数据文件。<br>如果应用程序希望下载一个文件以进行本地访问，但不需要立即使用该文件，例如，当预先为以后的访问预先加载数据时，最好完全避免使用Emscripten_FETCH_LOAD_TO_Memory标志，而只传递Emscripten_FETCH_REVERT_FILE_FILE标志。这将导致FETCH直接将文件下载到IndexedDB，从而避免在下载完成后暂时将文件填充到内存中。在这种情况下，onSuccess()处理程序将只报告下载的文件大小，而不会将数据字节包含到文件中。</p>
+<h3 id="从内存中持久化数据"><a href="#从内存中持久化数据" class="headerlink" title="从内存中持久化数据"></a>从内存中持久化数据</h3><p>有时，从应用程序内存到IndexedDB(不需要执行任何XHR)的字节范围很有用。通过将特殊的HTTP动作动词“EM_IDB_STORE”传递给Emscripten提取操作，这在Emscripten FETCH API中是可能的。</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">void success(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;IDB store succeeded.\n&quot;);</span><br><span class="line">  emscripten_fetch_close(fetch);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void failure(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;IDB store failed.\n&quot;);</span><br><span class="line">  emscripten_fetch_close(fetch);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void persistFileToIndexedDB(const char *outputFilename, uint8_t *data, size_t numBytes) &#123;</span><br><span class="line">  emscripten_fetch_attr_t attr;</span><br><span class="line">  emscripten_fetch_attr_init(&amp;attr);</span><br><span class="line">  strcpy(attr.requestMethod, &quot;EM_IDB_STORE&quot;);</span><br><span class="line">  attr.attributes = EMSCRIPTEN_FETCH_REPLACE | EMSCRIPTEN_FETCH_PERSIST_FILE;</span><br><span class="line">  attr.requestData = (char *)data;</span><br><span class="line">  attr.requestDataSize = numBytes;</span><br><span class="line">  attr.onsuccess = success;</span><br><span class="line">  attr.onerror = failure;</span><br><span class="line">  emscripten_fetch(&amp;attr, outputFilename);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">  // Create data</span><br><span class="line">  uint8_t *data = (uint8_t*)malloc(10240);</span><br><span class="line">  srand(time(NULL));</span><br><span class="line">  for(int i = 0; i &lt; 10240; ++i) data[i] = (uint8_t)rand();</span><br><span class="line"></span><br><span class="line">  persistFileToIndexedDB(&quot;outputfile.dat&quot;, data, 10240);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="congIndexedDB删除文件"><a href="#congIndexedDB删除文件" class="headerlink" title="congIndexedDB删除文件"></a>congIndexedDB删除文件</h3><p>可以使用HTTP动作动词“EM_IDB_DELETE”从IndexedDB清除文件：<br><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void success(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;Deleting file from IDB succeeded.\n&quot;);</span><br><span class="line">  emscripten_fetch_close(fetch);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void failure(emscripten_fetch_t *fetch) &#123;</span><br><span class="line">  printf(&quot;Deleting file from IDB failed.\n&quot;);</span><br><span class="line">  emscripten_fetch_close(fetch);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">  emscripten_fetch_attr_init(&amp;attr);</span><br><span class="line">  strcpy(attr.requestMethod, &quot;EM_IDB_DELETE&quot;);</span><br><span class="line">  emscripten_fetch(&amp;attr, &quot;filename_to_delete.dat&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/WebAssembly/" rel="tag"><i class="fas fa-tags"></i>WebAssembly</a>
+        
+        <a class="post-tag button" href="/tags/Emscripten/" rel="tag"><i class="fas fa-tags"></i>Emscripten</a>
+        
+        <a class="post-tag button" href="/tags/IndexedDB/" rel="tag"><i class="fas fa-tags"></i>IndexedDB</a>
+        
+        <a class="post-tag button" href="/tags/Fetch/" rel="tag"><i class="fas fa-tags"></i>Fetch</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  
+  <nav class="page-nav">
+    <div class="page-nav-next page-nav-item">
+      
+      <a href="/2018/12/09/Embind/" rel="next" title="Emscripten Embind"><i class="fas fa-angle-left"></i><span class="nav-title">Emscripten Embind</span></a>
+      
+    </div>
+    <div class="page-nav-prev page-nav-item">
+      
+    </div>
+  </nav>
+  
+  
+</div>
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="搜索" class="form-control"/>
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <img class="author-avatar" src="/images/xiaohei2.gif" alt="刘养硕">
+  
+  <h1 class="author-name">刘养硕</h1>
+  <h2 class="author-description">快乐生活，快乐学习</h2>
+  <div class="site-count">
+    
+    <div class="archives-count">
+      <div class="site-count-title">归档</div>
+      <div><a href="/archives/">7</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="categories-count">
+      <div class="site-count-title">分类</div>
+      <div><a href="/categories/">5</a></div>
+    </div>
+    
+    
+    
+    <span class="site-count-divider divider">|</span>
+    
+    <div class="tags-count">
+      <div class="site-count-title">标签</div>
+      <div><a href="/tags/">14</a></div>
+    </div>
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>文章目录</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#Emscripten异步IndexedDB-API"><span class="toc-text">Emscripten异步IndexedDB API</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#通过Fetch-API操作IndexedDB"><span class="toc-text">通过Fetch API操作IndexedDB</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#从网络文件持久化数据"><span class="toc-text">从网络文件持久化数据</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#从内存中持久化数据"><span class="toc-text">从内存中持久化数据</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#congIndexedDB删除文件"><span class="toc-text">congIndexedDB删除文件</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>社交链接</p></div>
+      <ul>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:youremail@youremailhost" target="_blank">E-Mail</a></li>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fab fa-weibo"></i><a href="https://weibo.com/" target="_blank">Weibo</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>友情链接</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a></li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer" style="background: #33363b;">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">刘养硕</span><span class="year"><i class="far fa-copyright"></i>2018</span>
+        </div>
+        
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="站点点击量" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="站点用户数" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="页面点击量" aria-hidden="false"></span></span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+          
+        </div>
+        <div class="powered-by">
+          由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

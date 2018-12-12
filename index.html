@@ -129,7 +129,7 @@
   
   <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/03/Embind/">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/12/IndexedDB/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="刘养硕">
         <meta itemprop="description" content="快乐生活，快乐学习">
@@ -141,12 +141,69 @@
     </div>
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2018/12/03/Embind/" itemprop="url">Embind</a>
+        <a class="post-title-link post-title-link-external" href="/2018/12/12/IndexedDB/" itemprop="url">Emscripten IndexedDB</a>
       </h1>
       <div class="post-meta">
         
         <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-12-03T10:30:00+08:00">2018-12-03 10:30:00</time></span>
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-12-12T10:00:00+08:00">2018-12-12 10:00:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WebAssembly/" itemprop="url" rel="index"><span itemprop="name">WebAssembly</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      
+      <p>这篇文件介绍两种操作IndexedDB的方式，一种是通过Emscripten文件系统层提供的IndexedDb方法；另一种是通过fetch来存储网络服务器中的文件或内存文件。第一种方式适用于存储小型数据，第二种方式适用于存储大型文件。</p>
+<h2 id="Emscripten异步IndexedDB-API"><a href="#Emscripten异步IndexedDB-API" class="headerlink" title="Emscripten异步IndexedDB API"></a>Emscripten异步IndexedDB API</h2><p>IndexedDB是一个允许您持久存储数据的浏览器API，也就是说，您可以将数据保存在那里，然后在用户重新访问网页时加载数据。IDBFS通过Emscripten文件系统层提供了一种使用IndexedDB的方法。emscripten_idb_*此处列出的方法提供了一个直接指向IndexedDB的替代API，从而避免了文件系统层的开销。<br>
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/WebAssembly/" rel="tag"><i class="fas fa-tags"></i>WebAssembly</a>
+        
+        <a class="post-tag button" href="/tags/Emscripten/" rel="tag"><i class="fas fa-tags"></i>Emscripten</a>
+        
+        <a class="post-tag button" href="/tags/IndexedDB/" rel="tag"><i class="fas fa-tags"></i>IndexedDB</a>
+        
+        <a class="post-tag button" href="/tags/Fetch/" rel="tag"><i class="fas fa-tags"></i>Fetch</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/09/Embind/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="刘养硕">
+        <meta itemprop="description" content="快乐生活，快乐学习">
+        <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2018/12/09/Embind/" itemprop="url">Emscripten Embind</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-12-09T10:30:00+08:00">2018-12-09 10:30:00</time></span>
         </span>
         
         
@@ -172,6 +229,8 @@
       <div class="post-tags">
         
         <a class="post-tag button" href="/tags/WebAssembly/" rel="tag"><i class="fas fa-tags"></i>WebAssembly</a>
+        
+        <a class="post-tag button" href="/tags/Emscripten/" rel="tag"><i class="fas fa-tags"></i>Emscripten</a>
         
         <a class="post-tag button" href="/tags/Embind/" rel="tag"><i class="fas fa-tags"></i>Embind</a>
         
@@ -483,7 +542,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">6</a></div>
+      <div><a href="/archives/">7</a></div>
     </div>
     
     
@@ -501,7 +560,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">标签</div>
-      <div><a href="/tags/">11</a></div>
+      <div><a href="/tags/">14</a></div>
     </div>
     
   </div>
