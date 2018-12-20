@@ -170,8 +170,8 @@
 <ul>
 <li>db_name：从哪个数据库加载数据</li>
 <li>file_id:要加载的数据标识符</li>
-<li>arg(void*):传递给毁掉的用户定义的数据，不受API本身的影响。这可以被回调用来标识相关的调用</li>
-<li>onload(em_async_wget_onload_func):成功将URL加载到缓冲区是进行回调，回调方法参数：<ul>
+<li>arg(void*):传递给回调的用户定义的数据，不受API本身的影响。这可以被回调用来标识相关的调用</li>
+<li>onload(em_async_wget_onload_func):成功将URL加载到缓冲区时进行回调，回调方法参数：<ul>
 <li>(void)*:等于arg(用户定义数据)</li>
 <li>(void)*:指向带有数据的缓冲区指针</li>
 <li>(int)：缓冲区大小，以字节为单位</li>
@@ -226,7 +226,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="通过Fetch-API操作IndexedDB"><a href="#通过Fetch-API操作IndexedDB" class="headerlink" title="通过Fetch API操作IndexedDB"></a>通过Fetch API操作IndexedDB</h2><h3 id="从网络文件持久化数据"><a href="#从网络文件持久化数据" class="headerlink" title="从网络文件持久化数据"></a>从网络文件持久化数据</h3><p>Emscripten FETCH API允许本机代码通过XHR(HTTPGET、PUT、POST)从远程服务器传输文件，并在浏览器的IndexedDB存储中本地宝存已下载的文件，以便在随后的也米恩访问是能够在本地重新访问这些文件。</p>
+<h2 id="通过Fetch-API操作IndexedDB"><a href="#通过Fetch-API操作IndexedDB" class="headerlink" title="通过Fetch API操作IndexedDB"></a>通过Fetch API操作IndexedDB</h2><h3 id="从网络文件持久化数据"><a href="#从网络文件持久化数据" class="headerlink" title="从网络文件持久化数据"></a>从网络文件持久化数据</h3><p>Emscripten FETCH API允许本机代码通过XHR(HTTPGET、PUT、POST)从远程服务器传输文件，并在浏览器的IndexedDB存储中本地宝存已下载的文件，以便在随后的页面访问是能够在本地重新访问这些文件。</p>
 <blockquote>
 <p>为了使用FETCH API，需要使用-s FETCH=1。</p>
 </blockquote>
@@ -265,6 +265,8 @@
     </div>
     <div class="page-nav-prev page-nav-item">
       
+      <a href="/2018/12/20/C++/" rel="prev" title="C/C++学习杂记"><span class="nav-title">C/C++学习杂记</span><i class="fas fa-angle-right"></i></a>
+      
     </div>
   </nav>
   
@@ -295,7 +297,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">7</a></div>
+      <div><a href="/archives/">8</a></div>
     </div>
     
     
