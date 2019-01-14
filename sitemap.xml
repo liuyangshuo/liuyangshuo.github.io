@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyangshuo.com/2018/10/06/git_command/</loc>
+    
+    <lastmod>2019-01-14T13:11:18.314Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyangshuo.com/2018/12/20/C++/</loc>
     
-    <lastmod>2018-12-20T14:05:12.041Z</lastmod>
+    <lastmod>2019-01-14T13:11:18.231Z</lastmod>
     
   </url>
   
@@ -33,13 +40,6 @@
     <loc>http://liuyangshuo.com/2018/10/13/hexo_and_markdown/</loc>
     
     <lastmod>2018-10-13T14:23:56.107Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyangshuo.com/2018/10/06/git_command/</loc>
-    
-    <lastmod>2018-10-13T08:14:55.812Z</lastmod>
     
   </url>
   
