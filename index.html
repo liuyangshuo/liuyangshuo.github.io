@@ -129,6 +129,65 @@
   
   <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2019/04/23/create_daemon/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="刘养硕">
+        <meta itemprop="description" content="快乐生活，快乐学习">
+        <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2019/04/23/create_daemon/" itemprop="url">创建守护进程</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-23T12:15:00+08:00">2019-04-23 12:15:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      
+      <h3 id="守护进程概述"><a href="#守护进程概述" class="headerlink" title="守护进程概述"></a>守护进程概述</h3><hr>
+<ul>
+<li>守护进程(daemon)是linux中的一种特殊进程，它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。它不需要用户输入就能运行而且提供某种服务，不是对整个系统就是对某个用户程序提供服务。Linux系统的大多数服务器就是通过守护进程实现的。常见的守护进程包括系统日志进程syslogd、 web服务器httpd、邮件服务器sendmail和数据库服务器mysqld等。</li>
+<li>守护进程一般在系统启动时开始运行，除非强行终止，否则直到系统关机都保持运行。守护进程经常以超级用户（root）权限运行，因为它们要使用特殊的端口（1-1024）或访问某些特殊的资源。</li>
+<li>一个守护进程的父进程是init进程，因为它真正的父进程在fork出子进程后就先于子进程exit退出了，所以它是一个由init继承的孤儿进程。守护进程是非交互式程序，没有控制终端，所以任何输出，无论是向标准输出设备stdout还是标准出错设备stderr的输出都需要特殊处理。</li>
+<li>守护进程的名称通常以d结尾，比如sshd、xinetd、crond等。</li>
+</ul>
+<hr>
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/linux/" rel="tag"><i class="fas fa-tags"></i>linux</a>
+        
+        <a class="post-tag button" href="/tags/daemon/" rel="tag"><i class="fas fa-tags"></i>daemon</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/20/C++/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="刘养硕">
@@ -332,9 +391,9 @@
       
       <div class="post-tags">
         
-        <a class="post-tag button" href="/tags/shell/" rel="tag"><i class="fas fa-tags"></i>shell</a>
-        
         <a class="post-tag button" href="/tags/linux/" rel="tag"><i class="fas fa-tags"></i>linux</a>
+        
+        <a class="post-tag button" href="/tags/shell/" rel="tag"><i class="fas fa-tags"></i>shell</a>
         
         <a class="post-tag button" href="/tags/多线程/" rel="tag"><i class="fas fa-tags"></i>多线程</a>
         
@@ -592,7 +651,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">8</a></div>
+      <div><a href="/archives/">9</a></div>
     </div>
     
     
@@ -601,7 +660,7 @@
     
     <div class="categories-count">
       <div class="site-count-title">分类</div>
-      <div><a href="/categories/">5</a></div>
+      <div><a href="/categories/">6</a></div>
     </div>
     
     
@@ -610,7 +669,7 @@
     
     <div class="tags-count">
       <div class="site-count-title">标签</div>
-      <div><a href="/tags/">14</a></div>
+      <div><a href="/tags/">15</a></div>
     </div>
     
   </div>
