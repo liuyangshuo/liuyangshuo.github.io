@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyangshuo.com/"/>
-  <updated>2019-04-25T14:04:45.014Z</updated>
+  <updated>2019-04-25T14:09:41.272Z</updated>
   <id>http://liuyangshuo.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux 网络编程</title>
+    <link href="http://liuyangshuo.com/2019/04/25/linux_socket/"/>
+    <id>http://liuyangshuo.com/2019/04/25/linux_socket/</id>
+    <published>2019-04-25T06:30:00.000Z</published>
+    <updated>2019-04-25T14:09:41.272Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h3><p>Socket编程中，TCP_NODELAY选项是用来控制是否开启Nagle算法，该算法是为了提高较慢的广域网传输效率，减小小分组的报文个数，完整描述：</p><a id="more"></a><blockquote><p>该算法要求一个TCP连接上最多只能有一个未被确认的小分组，在该小分组的确认到来之前，不能发送其他小分组。</p></blockquote><p>这里的小分组指的是报文长度小于MSS(Max Segment Size)长度的分组（MSS是在TCP握手的时候在报文选项里面进行通告的大小，主要是用来限制另一端发送数据的长度，防止IP数据包被分段，提高效率，一般是链路层的传输最大传输单元大小减去IP首部与TCP首部大小）。</p><p>如果小分组的确认ACK一直没有回来，那么就可能会触发TCP超时重传的定时器。</p><p>下面是一个简单的示意图，开启了Nagle算法与没有开启：</p><p><img src="https://github.com/liuyangshuo/liuyangshuo.github.io/raw/master/img/Nagle.jpg" alt="Nagle算法"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Nagle算法&quot;&gt;&lt;a href=&quot;#Nagle算法&quot; class=&quot;headerlink&quot; title=&quot;Nagle算法&quot;&gt;&lt;/a&gt;Nagle算法&lt;/h3&gt;&lt;p&gt;Socket编程中，TCP_NODELAY选项是用来控制是否开启Nagle算法，该算法是为了提高较慢的广域网传输效率，减小小分组的报文个数，完整描述：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://liuyangshuo.com/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="http://liuyangshuo.com/tags/linux/"/>
+    
+      <category term="socket" scheme="http://liuyangshuo.com/tags/socket/"/>
+    
+  </entry>
   
   <entry>
     <title>linux 系统函数</title>
@@ -45,30 +69,6 @@
       <category term="linux" scheme="http://liuyangshuo.com/tags/linux/"/>
     
       <category term="c" scheme="http://liuyangshuo.com/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux 网络编程</title>
-    <link href="http://liuyangshuo.com/2019/04/24/linux_socket/"/>
-    <id>http://liuyangshuo.com/2019/04/24/linux_socket/</id>
-    <published>2019-04-24T08:38:00.000Z</published>
-    <updated>2019-04-25T14:05:45.198Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h3><p>Socket编程中，TCP_NODELAY选项是用来控制是否开启Nagle算法，该算法是为了提高较慢的广域网传输效率，减小小分组的报文个数，完整描述：</p><a id="more"></a><blockquote><p>该算法要求一个TCP连接上最多只能有一个未被确认的小分组，在该小分组的确认到来之前，不能发送其他小分组。</p></blockquote><p>这里的小分组指的是报文长度小于MSS(Max Segment Size)长度的分组（MSS是在TCP握手的时候在报文选项里面进行通告的大小，主要是用来限制另一端发送数据的长度，防止IP数据包被分段，提高效率，一般是链路层的传输最大传输单元大小减去IP首部与TCP首部大小）。</p><p>如果小分组的确认ACK一直没有回来，那么就可能会触发TCP超时重传的定时器。</p><p>下面是一个简单的示意图，开启了Nagle算法与没有开启：</p><p><img src="https://github.com/liuyangshuo/liuyangshuo.github.io/raw/master/img/Nagle.jpg" alt="Nagle算法"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Nagle算法&quot;&gt;&lt;a href=&quot;#Nagle算法&quot; class=&quot;headerlink&quot; title=&quot;Nagle算法&quot;&gt;&lt;/a&gt;Nagle算法&lt;/h3&gt;&lt;p&gt;Socket编程中，TCP_NODELAY选项是用来控制是否开启Nagle算法，该算法是为了提高较慢的广域网传输效率，减小小分组的报文个数，完整描述：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux" scheme="http://liuyangshuo.com/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="http://liuyangshuo.com/tags/linux/"/>
-    
-      <category term="socket" scheme="http://liuyangshuo.com/tags/socket/"/>
     
   </entry>
   
