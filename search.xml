@@ -3,6 +3,56 @@
   
     
     <entry>
+      <title>linux 系统函数</title>
+      <link href="/2019/04/24/linux_system_function/"/>
+      <url>/2019/04/24/linux_system_function/</url>
+      
+        <content type="html"><![CDATA[<h3 id="线程数据共享"><a href="#线程数据共享" class="headerlink" title="线程数据共享"></a>线程数据共享</h3><p>pthread_getpecific和pthread_setspecific提供了在同一个线程中不同函数间共享数据即线程存储的一种方法。具体用法为：</p><hr><p>1.调用pthread_key_create()来创建一个类型为pthread_key_t类型的变量</p><p>该函数有两个参数，第一个参数就是声明的pthread_key_t变量，第二个参数是一个清理函数，用来在线程释放该线程存储的时候被调用。该函数指针可以设成NULL，这样系统将调用默认的清理函数。</p><p>2.调用pthread_setspcific()</p><p>当线程中需要存储特殊值的时候调用该函数，该函数有两个参数，第一个为前面声明的pthread_key_t变量，第二个为void*变量，用来存储任何类型的值。</p><p>3.如果需要取出所存储的值，调用pthread_getspecific()</p><p>该函数的参数为前面提到的pthread_key_t变量，该函数返回void*类型的值。</p><hr><a id="more"></a><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;pthread.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">pthread_key_t p_key;</span><br><span class="line"> </span><br><span class="line">void func1()</span><br><span class="line">&#123;</span><br><span class="line">    int *tmp = (int*)pthread_getspecific(p_key);//同一线程内的各个函数间共享数据。</span><br><span class="line">    printf(&quot;%d is runing in %s\n&quot;,*tmp,__func__);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line">void *thread_func(void *args)</span><br><span class="line">&#123;</span><br><span class="line"> </span><br><span class="line">    pthread_setspecific(p_key,args);</span><br><span class="line"> </span><br><span class="line">    int *tmp = (int*)pthread_getspecific(p_key);//获得线程的私有空间</span><br><span class="line">    printf(&quot;%d is runing in %s\n&quot;,*tmp,__func__);</span><br><span class="line"> </span><br><span class="line">    *tmp = (*tmp)*100;//修改私有变量的值</span><br><span class="line"> </span><br><span class="line">    func1();</span><br><span class="line"> </span><br><span class="line">    return (void*)0;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    pthread_t pa, pb;</span><br><span class="line">    int a=1;</span><br><span class="line">    int b=2;</span><br><span class="line">    pthread_key_create(&amp;p_key,NULL);</span><br><span class="line">    pthread_create(&amp;pa, NULL,thread_func,&amp;a);</span><br><span class="line">    pthread_create(&amp;pb, NULL,thread_func,&amp;b);</span><br><span class="line">    pthread_join(pa, NULL);</span><br><span class="line">    pthread_join(pb, NULL);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="gettid-和pthread-self"><a href="#gettid-和pthread-self" class="headerlink" title="gettid()和pthread_self()"></a>gettid()和pthread_self()</h3><hr><ul><li>有两个不同的线程id,因为线程是由两部分组成：内核的线程支持+用户态的库支持(glibc)。</li><li>在linux环境中进程和线程没有什么区别，所有东西都是内核任务结构中的一个线程，并且每个线程都有自己的数字标识符：pid，类型为：pid_t，可由getpid()获得。</li><li>linux下的由glibc线程库实现的POSIX线程也有一个id，配型为：pthread_t，可由pthread_self()获得，其在内核看来也是一个轻量级进程(LWP)。</li><li>gittid()是内核给线程(轻量级进程)分配的id，类型也是pid_t，全局(所有进程中)唯一；pthread_self()是在用户态实现的，获取的id实际上是主线程分配给子线程的线程描述符的地址而已，只是在当前进程空间中唯一；</li><li>gettid()封装了syscall(__NR_gettid)。从gettid()和getpid()获取的都是内核所分配的id。这由它们的返回类型也可以看出来。getpid()获取的是进程id,gettid()获取的是线程id，不过它们本质上是一样的。</li></ul><hr><h3 id="进程控制函数prctl"><a href="#进程控制函数prctl" class="headerlink" title="进程控制函数prctl()"></a>进程控制函数prctl()</h3><p>int prctl(int option, unsigned long arg2, unsigned long arg3, unsigned long arg4, unsigned long arg5)</p><p>这是一个系统调用指令，是为进程制定而设计的，明确的选择取决于option:</p><blockquote><p>PR_GET_PDEATHSIG :返回处理器信号；</p><p>PR_SET_PDEATHSIG :arg2作为处理器信号pdeath被输入，正如其名，如果父进程不能再用，进程接受这个信号。</p><p>PR_GET_DUMPABLE :返回处理器标志dumpable;</p><p>PR_SET_DUMPABLE :arg2作为处理器标志dumpable被输入。</p><p>PR_GET_NAME :返回调用进程的进程名字给参数arg2; （Since Linux2.6.9）</p><p>PR_SET_NAME :把参数arg2作为调用进程的经常名字。（SinceLinux 2.6.11）</p><p>PR_GET_TIMING :</p><p>PR_SET_TIMING :判定和修改进程计时模式,用于启用传统进程计时模式的</p><p>PR_TIMING_STATISTICAL，或用于启用基于时间戳的进程计时模式的</p><p>PR_TIMING_TIMESTAMP。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> c </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>linux 网络编程</title>
+      <link href="/2019/04/24/linux_socket/"/>
+      <url>/2019/04/24/linux_socket/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h3><p>Socket编程中，TCP_NODELAY选项是用来控制是否开启Nagle算法，该算法是为了提高较慢的广域网传输效率，减小小分组的报文个数，完整描述：</p><a id="more"></a><blockquote><p>该算法要求一个TCP连接上最多只能有一个未被确认的小分组，在该小分组的确认到来之前，不能发送其他小分组。</p></blockquote><p>这里的小分组指的是报文长度小于MSS(Max Segment Size)长度的分组（MSS是在TCP握手的时候在报文选项里面进行通告的大小，主要是用来限制另一端发送数据的长度，防止IP数据包被分段，提高效率，一般是链路层的传输最大传输单元大小减去IP首部与TCP首部大小）。</p><p>如果小分组的确认ACK一直没有回来，那么就可能会触发TCP超时重传的定时器。</p><p>下面是一个简单的示意图，开启了Nagle算法与没有开启：</p><p><img src="https://github.com/liuyangshuo/liuyangshuo.github.io/raw/master/img/Nagle.jpg" alt="Nagle算法"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> socket </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>创建守护进程</title>
       <link href="/2019/04/23/create_daemon/"/>
       <url>/2019/04/23/create_daemon/</url>

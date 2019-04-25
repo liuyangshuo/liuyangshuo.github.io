@@ -82,7 +82,7 @@
     <script defer type="text/javascript" src="/js/index.js"></script>
     
     <script defer type="text/javascript" src="/js/custom.js"></script>
-    <title>C/C++学习笔记 | 刘养硕的博客 - 记录工作和学习的点点滴滴</title>
+    <title>标签: c | 刘养硕的博客 - 记录工作和学习的点点滴滴</title>
   </head>
   <body itemscope itemtype="http://schema.org/WebPage" lang="default"  data-spy="scroll" data-target=".list-group">
     
@@ -124,73 +124,21 @@
         <div class="main-container">
           <div class="content">
             
-<div id="post" class="page">
+<div id="tag" class="tag page">
+  <h1 class="page-title">c</h1>
   
   <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/12/20/C++/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="刘养硕">
-       <meta itemprop="description" content="快乐生活，快乐学习">
-       <meta itemprop="image" content="/images/xiaohei2.gif">
+    <header id="post-header" class="post-header">
+      <h1 class="post-title-simple" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2019/04/24/linux_system_function/" itemprop="url">linux 系统函数</a>
+      </h1>
+      
+      <span class="post-date">
+        <time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-24T16:38:00+08:00">04-24</time>
       </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="刘养硕的博客">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">C/C++学习笔记</h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-12-20T21:30:00+08:00">2018-12-20 21:30:00</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
-        </span>
-        
-        
-      </div>
+      
     </header>
-    <main class="post-main" itemprop="articleBody">
-      <p>这篇文章记录学习C++过程中的一些知识点。<br><a id="more"></a></p>
-<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>我们用一段vector源码来看一下模板的使用。<br><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T, class Alloc = alloc&gt;</span><br><span class="line">class vector&#123;</span><br><span class="line">public:</span><br><span class="line">    //vector 的嵌套型别定义</span><br><span class="line">    typedef T           value_type;</span><br><span class="line">    typedef value_type* pointer;</span><br><span class="line">    typedef value_type* iterator;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面用一个vector模板类来说明模板的使用。这样定义vector的好处就是可以在使用时确定里面存储的数据类型。vector<int>等等<br>同样我们也可以将自己定义的类按照这种形式来实现。<br>这个例子主要是介绍如何定义一个模板类以及使用。</int></p>
-<h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><p>同样我们使用一段代码来说明<br><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __UTIL_H__</span><br><span class="line">#define __UTIL_H__</span><br><span class="line">... //代码</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure></p>
-<p>从上面的代码可以看出我们是在util.h文件中，虽然这个宏的名字可以随便起，而且在后面编写代码时也用不到，但是我们未避免宏重复定义而是用一定的格式(也可以：#ifndef __UTIL__)。</p>
-<p>#ifndef __UTIL_H__,#define __UTIL_H__出现在文件的前两行， #endif放在文件的末尾。当第一次编译文件时，由于没有定义__UTIL_H__(保证其他地方不会定义)，就会进入该条件里面的代码，首先定义一下__UTIL_H__然后编译文件中的代码。当第二次进入该文件时，由于定义过__UTIL_H__，就会直接结束条件而不会编译中间的代码，从而保证代码不会重复编译。</p>
-
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        <a class="post-tag button" href="/tags/C-C/" rel="tag"><i class="fas fa-tags"></i>C/C++</a>
-        
-      </div>
-      
-    </footer>
   </article>
-  
-  
-  <nav class="page-nav">
-    <div class="page-nav-next page-nav-item">
-      
-      <a href="/2018/12/12/IndexedDB/" rel="next" title="Emscripten IndexedDB"><i class="fas fa-angle-left"></i><span class="nav-title">Emscripten IndexedDB</span></a>
-      
-    </div>
-    <div class="page-nav-prev page-nav-item">
-      
-      <a href="/2019/04/23/create_daemon/" rel="prev" title="创建守护进程"><span class="nav-title">创建守护进程</span><i class="fas fa-angle-right"></i></a>
-      
-    </div>
-  </nav>
   
   
 </div>
@@ -250,17 +198,6 @@
 
 
   <div class="sidebar-sticky">
-    
-    
-    
-    
-    
-    <hr>
-    <div class="post-toc sidebar-item" id="toc-div">
-      <div><i class="fas fa-list-ol"></i>文章目录</div>
-      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#模板"><span class="toc-text">模板</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#条件编译"><span class="toc-text">条件编译</span></a></li></ol></div>
-    </div>
-    
     
     
     <hr>
