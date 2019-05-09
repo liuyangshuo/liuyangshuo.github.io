@@ -172,7 +172,7 @@
 <p>&lt;sys/socket.h&gt;</p>
 <p>int getsockopt(int sock, int level, int optname, void <em>optval, socklen_t </em>optlen);</p>
 <p>int setsockopt(int sock, int level, int optname, const void *optval, socklen_t optlen);</p>
-<p>获取或者设置与某个套接字关联的选 项。选项可能存在于多层协议中，它们总会出现在最上面的套接字层。当操作套接字选项时，选项位于的层和选项的名称必须给出。为了操作套接字层的选项，应该 将层的值指定为SOL_SOCKET。为了操作其它层的选项，控制选项的合适协议号必须给出。例如，为了表示一个选项由TCP协议解析，层应该设定为协议 号TCP。</p>
+<p>获取或者设置与某个套接字关联的选项。选项可能存在于多层协议中，它们总会出现在最上面的套接字层。当操作套接字选项时，选项位于的层和选项的名称必须给出。为了操作套接字层的选项，应该 将层的值指定为SOL_SOCKET。为了操作其它层的选项，控制选项的合适协议号必须给出。例如，为了表示一个选项由TCP协议解析，层应该设定为协议 号TCP。</p>
 <h5 id="参数"><a href="#参数" class="headerlink" title="参数:"></a>参数:</h5><p>sock：将要被设置或者获取选项的套接字。</p>
 <p>level：选项所在的协议层。</p>
 <p>optname：需要访问的选项名。</p>
@@ -261,6 +261,12 @@
 <p>client发送ACK之后，server被唤醒，并试图读取数据，但是这个时候client还没有发送数据，server就会处于阻塞状态，浪费系统资源。</p>
 <p>如果server端忽略client发送的ACK，而是直接等待接收到数据再唤醒，server醒来之后就可以直接处理数据，这就是TCP_DEFER_ACCEPT的作用。</p>
 <p>如果client端设置TCP_DEFER_ACCEPT选项，client就会不发送ACK，而是直接发送数据给server端。</p>
+<h3 id="inet-aton-inet-addr-inet-ntoa地址转换函数"><a href="#inet-aton-inet-addr-inet-ntoa地址转换函数" class="headerlink" title="inet_aton,inet_addr, inet_ntoa地址转换函数"></a>inet_aton,inet_addr, inet_ntoa地址转换函数</h3><figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">int inet_aton(const char *strptr, struct in_addr *addrptr); //字符串有效返回1，否则为0</span><br><span class="line">in_addr_t inet_addr(const char *strptr); //字符串有效则为32位二进制网络字节序的IPv4地址,否则为INADDR_NONE</span><br><span class="line">char *inet_ntoa(struct in_addr inaddr); //返回一个点分十进制数串的指针</span><br></pre></td></tr></table></figure>
+<p>inet_aton将strptr字符串转换成一个32为的网络字节序二进制值，并存放在addrptr指向的地址中。<br>inet_ntoa是不可重入的</p>
+<h3 id="inet-pton和inet-ntop地址转换函数"><a href="#inet-pton和inet-ntop地址转换函数" class="headerlink" title="inet_pton和inet_ntop地址转换函数"></a>inet_pton和inet_ntop地址转换函数</h3><p>函数命中的p和n分别代表表达(presentation)和数值(numeric)。</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">int inet_pton(int family, const char *strptr, void *addrptr);</span><br><span class="line">char *inet_ntop(int family, const void *addrptr, char *strptr, size_t len);</span><br></pre></td></tr></table></figure>
+<p>这两个函数的family既可以是AF_INET,也可以是AF_INET6<br>inet_pton将strptr转换成二进制数存放在addrptr中。成功返回1，family无效返回0并将errno置为EAFNOSUPPORT，函数出错返回-1。<br>inet_ntop函数的strptr不可以是一个空指针，必须为其分配内存。</p>
+<h3 id="bind函数"><a href="#bind函数" class="headerlink" title="bind函数"></a>bind函数</h3><p>进程捆绑非通配IP地址到套接字上的常见例子是在为多个组织提供Web服务器的主机上。首先，每个组织都得有各自的域名，譬如这样的形式:<a href="http://www.organization.com。其次，每个组织的域名都映射到不同的IP地址，不过通常仍在同一个子网上。举例来说，如果子网是198.69.10，那么第一个组织的IP地址可以是198.69.10.128，第二个组织的可以是198.69.10.129，等等。然后，把所有这些IP地址都定义成单个网络接口的别名（譬如在BSD系统上就是用ifconfig命令的alias选项来定义），这么一来，IP层将接受所有目的地为任何一个别名地址的外来数据报。最后，为每个组织启动一个HTTP服务器的副本，每个副本仅仅捆绑相应组织的IP地址。" target="_blank" rel="noopener">www.organization.com。其次，每个组织的域名都映射到不同的IP地址，不过通常仍在同一个子网上。举例来说，如果子网是198.69.10，那么第一个组织的IP地址可以是198.69.10.128，第二个组织的可以是198.69.10.129，等等。然后，把所有这些IP地址都定义成单个网络接口的别名（譬如在BSD系统上就是用ifconfig命令的alias选项来定义），这么一来，IP层将接受所有目的地为任何一个别名地址的外来数据报。最后，为每个组织启动一个HTTP服务器的副本，每个副本仅仅捆绑相应组织的IP地址。</a></p>
 
     </main>
     <footer class="post-footer">
@@ -280,12 +286,12 @@
   <nav class="page-nav">
     <div class="page-nav-next page-nav-item">
       
-      <a href="/2019/04/24/linux_system_function/" rel="next" title="linux 系统函数"><i class="fas fa-angle-left"></i><span class="nav-title">linux 系统函数</span></a>
+      <a href="/2019/04/25/util/" rel="next" title="C/C++ 通用方法"><i class="fas fa-angle-left"></i><span class="nav-title">C/C++ 通用方法</span></a>
       
     </div>
     <div class="page-nav-prev page-nav-item">
       
-      <a href="/2019/04/25/util/" rel="prev" title="C/C++ 通用方法"><span class="nav-title">C/C++ 通用方法</span><i class="fas fa-angle-right"></i></a>
+      <a href="/2019/04/28/c_function/" rel="prev" title="C 库函数"><span class="nav-title">C 库函数</span><i class="fas fa-angle-right"></i></a>
       
     </div>
   </nav>
@@ -356,7 +362,7 @@
     <hr>
     <div class="post-toc sidebar-item" id="toc-div">
       <div><i class="fas fa-list-ol"></i>文章目录</div>
-      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Nagle算法"><span class="toc-text">Nagle算法</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#getsockopt和setsockopt"><span class="toc-text">getsockopt和setsockopt</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#参数"><span class="toc-text">参数:</span></a></li><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#optname取值："><span class="toc-text">optname取值：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#TCP-DEFER-ACCEPT"><span class="toc-text">TCP_DEFER_ACCEPT</span></a></li></ol></div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Nagle算法"><span class="toc-text">Nagle算法</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#getsockopt和setsockopt"><span class="toc-text">getsockopt和setsockopt</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#参数"><span class="toc-text">参数:</span></a></li><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#optname取值："><span class="toc-text">optname取值：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#TCP-DEFER-ACCEPT"><span class="toc-text">TCP_DEFER_ACCEPT</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#inet-aton-inet-addr-inet-ntoa地址转换函数"><span class="toc-text">inet_aton,inet_addr, inet_ntoa地址转换函数</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#inet-pton和inet-ntop地址转换函数"><span class="toc-text">inet_pton和inet_ntop地址转换函数</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#bind函数"><span class="toc-text">bind函数</span></a></li></ol></div>
     </div>
     
     
