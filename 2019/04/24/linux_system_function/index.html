@@ -193,6 +193,54 @@
 <p>PR_TIMING_STATISTICAL，或用于启用基于时间戳的进程计时模式的</p>
 <p>PR_TIMING_TIMESTAMP。</p>
 </blockquote>
+<h3 id="sigaction信号检查和修改"><a href="#sigaction信号检查和修改" class="headerlink" title="sigaction信号检查和修改"></a>sigaction信号检查和修改</h3><p>int sigaction(int signo, const struct sigaction <em>restrict act, struct sigaction </em>restrict oact);</p>
+<p>给信号signo设置新的信号处理函数，同事保留该信号原有的信号处理函数oact。</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct sigaction &#123;</span><br><span class="line">    void (*sa_handler)(int);</span><br><span class="line">    void (*sa_sigaction)(int, siginfo_t*, void *);</span><br><span class="line">    sigset_t sa_mask;</span><br><span class="line">    int sa_flags;</span><br><span class="line">    void (*sa_restorer)(void);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>sa_handler字段包含一个信号捕捉函数的地址</p>
+</li>
+<li><p>sa_sigaction字段包含一个信号捕捉函数的地址，需要为sa_flags设置SA_SIGINFO标志</p>
+</li>
+<li><p>sa_mask字段说明了一个信号集，在调用该信号捕捉函数之前，这一信号集要加进进程的信号屏蔽字中。仅当从信号捕捉函数返回时再将进程的信号屏蔽字复位为原先值。</p>
+</li>
+<li><p>sa_flag是一个选项，主要理解两个</p>
+<ul>
+<li><p>SA_NODEFER:  当信号处理函数正在进行时，不堵塞对于信号处理函数自身信号功能。</p>
+</li>
+<li><p>SA_RESETHAND:当用户注册的信号处理函数被执行过一次后，该信号的处理函数被设为系统默认的处理函数。</p>
+</li>
+<li><p>SA_SIGINFO 提供附加信息，一个指向siginfo结构的指针以及一个指向进程上下文标识符的指针，该选项设置之后就需要使用sa_sigaction取代sa_handler来指向一个函数</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void signal_init()</span><br><span class="line">&#123;</span><br><span class="line">    struct sigaction act;</span><br><span class="line">    memset(&amp;act, 0x0, sizeof(act));</span><br><span class="line">    </span><br><span class="line">    /* allow signals to be handled concurrently */</span><br><span class="line">    act.sa_flags = SA_SIGINFO | SA_NODEFER;</span><br><span class="line">    act.sa_sigaction = &amp;mk_signal_handler; //设置新的信号处理函数</span><br><span class="line"></span><br><span class="line">    sigaction(SIGSEGV, &amp;act, NULL);</span><br><span class="line">    sigaction(SIGBUS,  &amp;act, NULL);</span><br><span class="line">    sigaction(SIGHUP,  &amp;act, NULL);</span><br><span class="line">    sigaction(SIGINT,  &amp;act, NULL);</span><br><span class="line">    sigaction(SIGTERM, &amp;act, NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h3><p>typedef void (*sighandler_t)(int);</p>
+<p>sighandler_t signal(int signum, sighandler_t handler);</p>
+<blockquote>
+<p>signum : 我们要进行处理的信号。</p>
+</blockquote>
+<p>系统的信号我们可以再终端键入 kill -l查看(共64个)。其实这些信号时系统定义的宏。</p>
+<blockquote>
+<p>handler : 我们处理的方式（是系统默认还是忽略还是捕获）</p>
+</blockquote>
+<p>一般有3中方式进行操作。</p>
+<hr>
+<ol>
+<li>signal(SIGINT, SIG_IGN);</li>
+</ol>
+<p>SIG_IGN代表忽略SIGINT信号，SIGINT信号代表由InterruptKey产生，通常是CTRL + C 或者是 DELETE,发送给所有ForeGround Group的进程。</p>
+<p>下面我们写个死循环：</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include</span><br><span class="line">#include</span><br><span class="line">int main(int argc , char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">signal(SIGINT,SIG_IGN);</span><br><span class="line">for(;;);</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时我们保存执行。按下CTRL _C程序没有反应。这就对了如果我们想结束该程序可以按下CTRL +\来结束其实当我们按下CTRL +\组合键时，是产生了SIGQUIT信号</p>
+<ol start="2">
+<li>signal(SIGINT, SIG_DFL);</li>
+</ol>
+<p>SIGINT信号代表由InterruptKey产生，通常是CTRL + C 或者是 DELETE，发送给所有 ForeGroundGroup 的进程。SIG_DFL代表执行系统默认操作，其实对于大多数信号的系统默认动作时终止该进程。这与不写此处理函数是一样的。</p>
+<p>我们将上面的程序改成:</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include</span><br><span class="line">#include</span><br><span class="line">int main(int argc , char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">//signal(SIGINT,SIG_IGN);</span><br><span class="line">signal(SIGINT,SIG_DFL)</span><br><span class="line">for(;;);</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时就可以按下CTRL +C 来终止该进程了把 signal(SIGINT,SIG_DFL);这句去掉，效果是一样的。</p>
+<hr>
 
     </main>
     <footer class="post-footer">
@@ -249,7 +297,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">11</a></div>
+      <div><a href="/archives/">13</a></div>
     </div>
     
     
@@ -288,7 +336,7 @@
     <hr>
     <div class="post-toc sidebar-item" id="toc-div">
       <div><i class="fas fa-list-ol"></i>文章目录</div>
-      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#线程数据共享"><span class="toc-text">线程数据共享</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#gettid-和pthread-self"><span class="toc-text">gettid()和pthread_self()</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#进程控制函数prctl"><span class="toc-text">进程控制函数prctl()</span></a></li></ol></div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#线程数据共享"><span class="toc-text">线程数据共享</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#gettid-和pthread-self"><span class="toc-text">gettid()和pthread_self()</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#进程控制函数prctl"><span class="toc-text">进程控制函数prctl()</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#sigaction信号检查和修改"><span class="toc-text">sigaction信号检查和修改</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#signal"><span class="toc-text">signal</span></a></li></ol></div>
     </div>
     
     

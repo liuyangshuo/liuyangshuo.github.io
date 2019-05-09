@@ -129,6 +129,134 @@
   
   <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2019/04/28/c_function/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="刘养硕">
+        <meta itemprop="description" content="快乐生活，快乐学习">
+        <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2019/04/28/c_function/" itemprop="url">C 库函数</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-28T11:30:00+08:00">2019-04-28 11:30:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      
+      <h3 id="strtol"><a href="#strtol" class="headerlink" title="strtol"></a>strtol</h3><p>long int strtol(const char *nptr, char **endptr, int base)</p>
+<p>strtol()会将nptr指向的字符串，根据参数base，按权转化为long int, 然后返回这个值。</p>
+<p>参数base的范围为2~36,和0；它决定了字符串以被转换为整数的权值。</p>
+<p>可以被转换的合法字符依据base而定，举例来说，当base为2时，合法字符为‘0’，‘1’；</p>
+<p>base为8时，合法字符为‘0’，‘1’，……‘7’；</p>
+<p>base为10时，合法字符为‘0’，‘1’，……‘9’；</p>
+<p>base 为16时，合法字符为‘0’，‘1’，……‘9’，‘a’，……‘f’；</p>
+<p>base为24时，合法字符为‘0’，……‘9’，‘a’，……‘n’；</p>
+<p>base为36时，合法字符为‘0’，……‘9’，‘a’，……‘z’；</p>
+<p>其中，不区分大小写，比如，‘A’和‘a’会都会被转化为10。</p>
+<p>当字符合法时，‘0’，……‘9’依次被转换为十进制的0～9，‘a’，……‘z’一次北转换为十进制的10～35。</p>
+<p>strtol()函数检测到第一个非法字符时，立即停止检测，其后的所有字符都会被当作非法字符处理。合法字符串会被转换为long int，作为函数的返回值。</p>
+<p>非法字符串，即从第一个非法字符的地址，被赋给*endptr。</p>
+<p>*<em>endptr是个双重指针，即指针的指针。strtol()函数就是通过它改变</em>endptr的值，即把第一个非法字符的地址传给endptr。</p>
+<p>下面看几个例子:</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char buffer[20]=&quot;10379cend$3&quot;;</span><br><span class="line">char *stop;</span><br><span class="line">printf(&quot;%d\n&quot;,strtol(buffer, &amp;stop, 2));</span><br><span class="line">printf(&quot;%s\n&quot;, stop);</span><br><span class="line">输出结果：</span><br><span class="line">2   //改结果为匹配到 10，然后将 10作为一个二进制数，然后再转化为十进制输出</span><br><span class="line">379cend$3</span><br></pre></td></tr></table></figure>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char buffer[20]=&quot;10379cend$3&quot;;</span><br><span class="line">char *stop;</span><br><span class="line">printf(&quot;%d\n&quot;,strtol(buffer, &amp;stop, 8));</span><br><span class="line">printf(&quot;%s\n&quot;, stop);</span><br><span class="line">输出结果：</span><br><span class="line">543     //改结果为匹配到 1037，然后将1037 作为一个八进制数，然后再转化为十进制输出</span><br><span class="line">9cend$3</span><br></pre></td></tr></table></figure>
+<p>上面匹配到1037, 7 + 3 <em> 8 + 1 </em> 8 <em> 8 </em> 8 = 543</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char buffer[20]=&quot;10379cend$3&quot;;</span><br><span class="line">char *stop;</span><br><span class="line">printf(&quot;%d\n&quot;,strtol(buffer, &amp;stop, 10));</span><br><span class="line">printf(&quot;%s\n&quot;, stop);</span><br><span class="line">输出结果：</span><br><span class="line">10379</span><br><span class="line">cend$3</span><br></pre></td></tr></table></figure>
+<p>另外，如果base为0，且字符串不是以0x(或者0X)开头，则按十进制进行转化。</p>
+<p>如果base为0或者16，并且字符串以0x（或者0X）开头，那么，x（或者X）被忽略，字符串按16进制转化。</p>
+<p>如果base不等于0和16，并且字符串以0x(或者0X)开头，那么x被视为非法字符。</p>
+<p>例如:</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char buffer[20]=&quot;0x31da6c&quot;;</span><br><span class="line">char *stop;</span><br><span class="line">printf(&quot;%d\n&quot;,strtol(buffer, &amp;stop, 0));</span><br><span class="line">printf(&quot;%s\n&quot;, stop);</span><br><span class="line">输出结果(stop为空)：</span><br><span class="line">3267180</span><br></pre></td></tr></table></figure>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">char buffer[20]=&quot;0x31da6c&quot;;</span><br><span class="line">char *stop;</span><br><span class="line">printf(&quot;%d\n&quot;,strtol(buffer, &amp;stop, 13));</span><br><span class="line">printf(&quot;%s\n&quot;, stop);</span><br><span class="line">输出结果：</span><br><span class="line">0</span><br><span class="line">0x31da6c</span><br></pre></td></tr></table></figure>
+<h3 id="memchr"><a href="#memchr" class="headerlink" title="memchr"></a>memchr</h3><p>void <em>memchr(const void </em>str, int c, size_t n)</p>
+<p>在参数 str 所指向的字符串的前 n 个字节中搜索第一次出现字符 c（一个无符号字符）的位置。</p>
+<figure class="hljs highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">char *p;</span><br><span class="line"></span><br><span class="line">if (len &lt; 0) &#123;</span><br><span class="line">    len = strlen(string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p = memchr(string, c, len);</span><br><span class="line"></span><br><span class="line">if (p) &#123;</span><br><span class="line">    return (p - string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return -1;</span><br></pre></td></tr></table></figure>
+
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/C-C/" rel="tag"><i class="fas fa-tags"></i>C/C++</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
+      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2019/04/25/util/">
+      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <meta itemprop="name" content="刘养硕">
+        <meta itemprop="description" content="快乐生活，快乐学习">
+        <meta itemprop="image" content="/images/xiaohei2.gif">
+      </span>
+      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop="name" content="刘养硕的博客">
+      </span>
+    </div>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">
+        <a class="post-title-link post-title-link-external" href="/2019/04/25/util/" itemprop="url">C/C++ 通用方法</a>
+      </h1>
+      <div class="post-meta">
+        
+        <span class="post-date">
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-25T14:30:00+08:00">2019-04-25 14:30:00</time></span>
+        </span>
+        
+        
+        
+        <span class="post-meta-divider divider">|</span>
+        
+        <span class="post-categories">
+          
+          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
+        </span>
+        
+        
+      </div>
+    </header>
+    <main class="post-main" itemprop="articleBody">
+      
+      <p>该篇文章收录了自己所看到的一些优秀的通用方法，在以后的工作学习中作为参考。</p>
+      
+    </main>
+    <footer class="post-footer">
+      
+      <div class="post-tags">
+        
+        <a class="post-tag button" href="/tags/C-C/" rel="tag"><i class="fas fa-tags"></i>C/C++</a>
+        
+      </div>
+      
+    </footer>
+  </article>
+  
+  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
+    <div class="post-block">
       <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2019/04/25/linux_socket/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="刘养硕">
@@ -571,125 +699,6 @@
     </footer>
   </article>
   
-  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/10/10/C++_abs/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="刘养硕">
-        <meta itemprop="description" content="快乐生活，快乐学习">
-        <meta itemprop="image" content="/images/xiaohei2.gif">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="刘养硕的博客">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2018/10/10/C++_abs/" itemprop="url">C/C++知识总结之abs函数</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-10-10T21:25:00+08:00">2018-10-10 21:25:00</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-main" itemprop="articleBody">
-      
-      <h3 id="abs函数"><a href="#abs函数" class="headerlink" title="abs函数"></a>abs函数</h3><hr>
-<ul>
-<li>abs函数存在于不止一个库中，使用哪个库中的abs函数就可以包含哪个头文件</li>
-<li>其中在c标准库stdlib.h中abs函数只接受整型或长整型，在c98标准中参数类型可以是int或long int类型；c11标准中还可以是long long int类型</li>
-<li>在数学函数库cmath/math.h中，在c++98标准中abs可接受的参数类型为double/float/long double；在c++11中还可以接受各种整型参数。abs还可以写成fabs，这两个用法是一样的，labs则只接受long int类型的参数。在c++11中头文件可以写cmath,c++98只能写math.h</li>
-<li>abs函数的返回值和参数类型保持一致</li>
-</ul>
-<hr>
-
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        <a class="post-tag button" href="/tags/C-C/" rel="tag"><i class="fas fa-tags"></i>C/C++</a>
-        
-        <a class="post-tag button" href="/tags/abs/" rel="tag"><i class="fas fa-tags"></i>abs</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
-  <article class="article post card animate" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://liuyangshuo.com/2018/10/06/git_command/">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="刘养硕">
-        <meta itemprop="description" content="快乐生活，快乐学习">
-        <meta itemprop="image" content="/images/xiaohei2.gif">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="刘养硕的博客">
-      </span>
-    </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2018/10/06/git_command/" itemprop="url">git 学习</a>
-      </h1>
-      <div class="post-meta">
-        
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2018-10-06T17:53:11+08:00">2018-10-06 17:53:11</time></span>
-        </span>
-        
-        
-        
-        <span class="post-meta-divider divider">|</span>
-        
-        <span class="post-categories">
-          
-          <i class="far fa-folder-open"></i><span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发工具/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a></span>
-        </span>
-        
-        
-      </div>
-    </header>
-    <main class="post-main" itemprop="articleBody">
-      
-      <h3 id="版本库简介"><a href="#版本库简介" class="headerlink" title="版本库简介"></a>版本库简介</h3><hr>
-<ul>
-<li>cvs和svn都是集中式版本控制系统，git是分布式版本控制系统</li>
-<li>集中式一旦中央服务器坏掉，使用该版本库的所有员工都无法工作</li>
-<li>而分布式每个人的电脑都相当于一个完整的版本库，无需联网一样工作，分布式较集中式的安全性要高很多</li>
-<li>本文介绍git使用的一些常用的命令</li>
-</ul>
-<hr>
-      
-    </main>
-    <footer class="post-footer">
-      
-      <div class="post-tags">
-        
-        <a class="post-tag button" href="/tags/git/" rel="tag"><i class="fas fa-tags"></i>git</a>
-        
-        <a class="post-tag button" href="/tags/开发工具/" rel="tag"><i class="fas fa-tags"></i>开发工具</a>
-        
-      </div>
-      
-    </footer>
-  </article>
-  
   
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-right" aria-label="下一页"></i></a>
@@ -722,7 +731,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">11</a></div>
+      <div><a href="/archives/">13</a></div>
     </div>
     
     

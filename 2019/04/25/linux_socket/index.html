@@ -168,6 +168,99 @@
 <p>如果小分组的确认ACK一直没有回来，那么就可能会触发TCP超时重传的定时器。</p>
 <p>下面是一个简单的示意图，开启了Nagle算法与没有开启：</p>
 <p><img src="https://github.com/liuyangshuo/liuyangshuo.github.io/raw/master/img/Nagle.jpg" alt="Nagle算法"></p>
+<h3 id="getsockopt和setsockopt"><a href="#getsockopt和setsockopt" class="headerlink" title="getsockopt和setsockopt"></a>getsockopt和setsockopt</h3><p>&lt;sys/types.h&gt;</p>
+<p>&lt;sys/socket.h&gt;</p>
+<p>int getsockopt(int sock, int level, int optname, void <em>optval, socklen_t </em>optlen);</p>
+<p>int setsockopt(int sock, int level, int optname, const void *optval, socklen_t optlen);</p>
+<p>获取或者设置与某个套接字关联的选 项。选项可能存在于多层协议中，它们总会出现在最上面的套接字层。当操作套接字选项时，选项位于的层和选项的名称必须给出。为了操作套接字层的选项，应该 将层的值指定为SOL_SOCKET。为了操作其它层的选项，控制选项的合适协议号必须给出。例如，为了表示一个选项由TCP协议解析，层应该设定为协议 号TCP。</p>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数:"></a>参数:</h5><p>sock：将要被设置或者获取选项的套接字。</p>
+<p>level：选项所在的协议层。</p>
+<p>optname：需要访问的选项名。</p>
+<p>optval：对于getsockopt()，指向返回选项值的缓冲。对于setsockopt()，指向包含新选项值的缓冲。</p>
+<p>optlen：对于getsockopt()，作为入口参数时，选项值的最大长度。作为出口参数时，选项值的实际长度。对于setsockopt()，现选项的长度。</p>
+<h5 id="optname取值："><a href="#optname取值：" class="headerlink" title="optname取值："></a>optname取值：</h5><blockquote>
+<p>SO_DEBUG，打开或关闭调试信息  </p>
+</blockquote>
+<p>当optval不等于0时，打开调试信息，否则，关闭调试信息。它实际所做的工作是在sock-&gt;sk-&gt;sk_flag中置 SOCK_DBG(第10)位，或清SOCK_DBG位。</p>
+<blockquote>
+<p>SO_REUSEADDR，打开或关闭地址复用功能</p>
+</blockquote>
+<p>当optval不等于0时，打开，否则，关闭。它实际所做的工作是置sock-&gt;sk-&gt;sk_reuse为1或0。</p>
+<blockquote>
+<p>SO_DONTROUTE，打开或关闭路由查找功能</p>
+</blockquote>
+<p>当optval不等于0时，打开，否则，关闭。它实际所做的工作是在sock-&gt;sk-&gt;sk_flag中置或清SOCK_LOCALROUTE位。</p>
+<blockquote>
+<p>SO_BROADCAST，允许或禁止发送广播数据</p>
+</blockquote>
+<p>当optval不等于0时，允许，否则，禁止。它实际所做的工作是在sock-&gt;sk-&gt;sk_flag中置或清SOCK_BROADCAST位。</p>
+<blockquote>
+<p>SO_SNDBUF，设置发送缓冲区的大小</p>
+</blockquote>
+<p>发送缓冲区的大小是有上下限的，其上限为256 <em> (sizeof(struct sk_buff) + 256)，下限为2048字节。该操作将sock-&gt;sk-&gt;sk_sndbuf设置为val </em> 2，之所以要乘以2，是防<br>止大数据量的发送，突然导致缓冲区溢出。最后，该操作完成后，因为对发送缓冲的大小 作了改变，要检查sleep队列，如果有进程正在等待写，将它们唤醒。</p>
+<blockquote>
+<p>SO_RCVBUF，设置接收缓冲区的大小</p>
+</blockquote>
+<p>接收缓冲区大小的上下限分别是：256 <em> (sizeof(struct sk_buff) + 256)和256字节。该操作将sock-&gt;sk-&gt;sk_rcvbuf设置为val </em> 2。</p>
+<blockquote>
+<p>SO_KEEPALIVE，套接字保持活跃</p>
+</blockquote>
+<p>如果协议是TCP，并且当前的套接字状态不是侦听(listen)或关闭(close)，那么，当optval不是零时，启用TCP保活定时 器，否则关闭保活定时器。对于所有协议，该操<br>作都会根据optval置或清 sock-&gt;sk-&gt;sk_flag中的 SOCK_KEEPOPEN位。</p>
+<blockquote>
+<p>SO_OOBINLINE，紧急数据放入普通数据流</p>
+</blockquote>
+<p>该操作根据optval的值置或清sock-&gt;sk-&gt;sk_flag中的SOCK_URGINLINE位。</p>
+<blockquote>
+<p>SO_NO_CHECK，打开或关闭校验和</p>
+</blockquote>
+<p>该操作根据optval的值，设置sock-&gt;sk-&gt;sk_no_check。</p>
+<blockquote>
+<p>SO_PRIORITY，设置在套接字发送的所有包的协议定义优先权。Linux通过这一值来排列网络队列</p>
+</blockquote>
+<p>这个值在0到6之间（包括0和6），由optval指定。赋给sock-&gt;sk-&gt;sk_priority。</p>
+<blockquote>
+<p>SO_LINGER，如果选择此选项, close或 shutdown将等到所有套接字里排队的消息成功发送或到达延迟时间后&gt;才会返回. 否则, 调用将立即返回</p>
+</blockquote>
+<p>该选项的参数（optval)是一个linger结构：</p>
+<pre><code>struct linger {
+    int   l_onoff;   
+    int   l_linger;  
+};
+</code></pre><p>如果linger.l_onoff值为0(关闭），则清 sock-&gt;sk-&gt;sk_flag中的SOCK_LINGER位；否则，置该位，并赋sk-&gt;sk_lingertime值为 linger.l_linger。</p>
+<blockquote>
+<p>O_PASSCRED，允许或禁止SCM_CREDENTIALS 控制消息的接收</p>
+</blockquote>
+<p>该选项根据optval的值，清或置sock-&gt;sk-&gt;sk_flag中的SOCK_PASSCRED位。</p>
+<blockquote>
+<p>SO_TIMESTAMP，打开或关闭数据报中的时间戳接收</p>
+</blockquote>
+<p>该选项根据optval的值，清或置sock-&gt;sk-&gt;sk_flag中的SOCK_RCVTSTAMP位，如果打开，则还需设sock-&gt;sk-&gt;sk_flag中的SOCK_TIMESTAMP位，同时，将全局变量<br>netstamp_needed加1。</p>
+<blockquote>
+<p>SO_RCVLOWAT，设置接收数据前的缓冲区内的最小字节数</p>
+</blockquote>
+<p>在Linux中，缓冲区内的最小字节数是固定的，为1。即将sock-&gt;sk-&gt;sk_rcvlowat固定赋值为1。</p>
+<blockquote>
+<p>SO_RCVTIMEO，设置接收超时时间</p>
+</blockquote>
+<p>该选项最终将接收超时时间赋给sock-&gt;sk-&gt;sk_rcvtimeo。</p>
+<blockquote>
+<p>SO_SNDTIMEO，设置发送超时时间</p>
+</blockquote>
+<p>该选项最终将发送超时时间赋给sock-&gt;sk-&gt;sk_sndtimeo。</p>
+<blockquote>
+<p>SO_BINDTODEVICE，将套接字绑定到一个特定的设备上</p>
+</blockquote>
+<p>该选项最终将设备赋给sock-&gt;sk-&gt;sk_bound_dev_if。</p>
+<blockquote>
+<p>SO_ATTACH_FILTER和SO_DETACH_FILTER</p>
+</blockquote>
+<p>关于数据包过滤，它们最终会影响sk-&gt;sk_filter。</p>
+<h3 id="TCP-DEFER-ACCEPT"><a href="#TCP-DEFER-ACCEPT" class="headerlink" title="TCP_DEFER_ACCEPT"></a>TCP_DEFER_ACCEPT</h3><blockquote>
+<p>setsockopt(int sockfd, IPPROTO_TCP, TCP_DEFER_ACCEPT, &amp;timeout, sizeof(int))</p>
+</blockquote>
+<p>client发送ACK之后，server被唤醒，并试图读取数据，但是这个时候client还没有发送数据，server就会处于阻塞状态，浪费系统资源。</p>
+<p>如果server端忽略client发送的ACK，而是直接等待接收到数据再唤醒，server醒来之后就可以直接处理数据，这就是TCP_DEFER_ACCEPT的作用。</p>
+<p>如果client端设置TCP_DEFER_ACCEPT选项，client就会不发送ACK，而是直接发送数据给server端。</p>
 
     </main>
     <footer class="post-footer">
@@ -191,6 +284,8 @@
       
     </div>
     <div class="page-nav-prev page-nav-item">
+      
+      <a href="/2019/04/25/util/" rel="prev" title="C/C++ 通用方法"><span class="nav-title">C/C++ 通用方法</span><i class="fas fa-angle-right"></i></a>
       
     </div>
   </nav>
@@ -222,7 +317,7 @@
     
     <div class="archives-count">
       <div class="site-count-title">归档</div>
-      <div><a href="/archives/">11</a></div>
+      <div><a href="/archives/">13</a></div>
     </div>
     
     
@@ -261,7 +356,7 @@
     <hr>
     <div class="post-toc sidebar-item" id="toc-div">
       <div><i class="fas fa-list-ol"></i>文章目录</div>
-      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Nagle算法"><span class="toc-text">Nagle算法</span></a></li></ol></div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#Nagle算法"><span class="toc-text">Nagle算法</span></a></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#getsockopt和setsockopt"><span class="toc-text">getsockopt和setsockopt</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#参数"><span class="toc-text">参数:</span></a></li><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#optname取值："><span class="toc-text">optname取值：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#TCP-DEFER-ACCEPT"><span class="toc-text">TCP_DEFER_ACCEPT</span></a></li></ol></div>
     </div>
     
     
